@@ -1,0 +1,145 @@
+#include<stdio.h>					//Header Files
+#include<conio.h>
+int main()
+{
+    char a[100][100];
+    int i,j,size,n1,n2,m1,m2,lvl=1;                     //n1 and m1 are positions for Lamb and n2 and m2 are the position for Wolf enter by the user.
+    printf("\nEnter the size of square ground\n");
+    scanf("%d",&size);                                  //size indicates the area of ground.
+    for(i=1;i<=size;i++)
+    {
+        for(j=1;j<=size;j++)
+        {
+            if(j%2==1)
+            {
+                a[i][j]='*';                             //0 indicates space.
+            }
+            else
+            {
+                a[i][j]='0';                             //* indicates grass.
+            }
+        }
+    }
+    printf("Enter the positions for Lamb(L) in any row and coloumn\n");
+    scanf("%d%d",&n1,&m1);
+    a[n1][m1]='L';								//L indicates Lamb.
+    printf("Enter the positions for Wolf(W) in any row and coloumn\n");
+    scanf("%d%d",&n2,&m2);
+    a[n2][m2]='W';								//W indicates Wolf.
+    printf("Position of lamb(L) and Wolf(W) at %d level\n",lvl);
+    for(i=1;i<=size;i++)
+    {
+        printf("\t");
+        for(j=1;j<=size;j++)
+        {
+            printf("%c",a[i][j]);
+        }
+        printf("\n");
+    }
+    while(getch()==13)
+    {
+        if(n1<=size&&m1<=size&&n2<=size&&m2<=size)
+        {
+            if(n1==n2&&m1==m2)
+            {
+                for(i=0;i<80;i++)
+                {
+                    printf("-");
+                }
+                printf("\n\nWolf catch the Lamb\n");
+                break;
+            }
+            else
+            {
+                if(n1==1||m1==1)
+                {
+                    a[n1][m1]='0';
+                    if(m2%2==1)
+                    {
+                        a[n2][m2]='*';
+                    }
+                    else
+                    {
+                        a[n2][m2]='0';
+                    }
+                    a[n1=n1+1][m1=m1+1]='L';
+                    a[n2][m2=m2-1]='W';
+                }
+                else if(n2==1||m2==1)
+                {
+                    a[n1][m1]='0';
+                    if(m2%2==1)
+                    {
+                        a[n2][m2]='*';
+                    }
+                    else
+                    {
+                        a[n2][m2]='0';
+                    }
+                    a[n1=n1-1][m1]='L';
+                    a[n2=n2+1][m2=m2+1]='W';
+                }
+                else if(n1==size||m1==size)
+                {
+                    a[n1][m1]='0';
+                    if(m2%2==1)
+                    {
+                        a[n2][m2]='*';
+                    }
+                    else
+                    {
+                        a[n2][m2]='0';
+                    }
+                    a[n1=n1-1][m1=m1-1]='L';
+                    a[n2][m2=m2-1]='W';
+                }
+                else if(n2==size||m2==size)
+                {
+                    a[n1][m1]='0';
+                    if(m2%2==1)
+                    {
+                        a[n2][m2]='*';
+                    }
+                    else
+                    {
+                        a[n2][m2]='0';
+                    }
+                    a[n1=n1-1][m1=m1-1]='L';
+                    a[n2=n2-1][m2]='W';
+                }
+                else
+                {
+                    a[n1][m1]='0';
+                    if(m2%2==1)
+                    {
+                        a[n2][m2]='*';
+                    }
+                    else
+                    {
+                        a[n2][m2]='0';
+                    }
+                    a[n1][m1=m1-1]='L';
+                    a[n2=n2+1][m2]='W';
+                }
+            }
+            lvl++;
+            printf("\n\nNew Position of lamb(L) and Wolf(W) at %d level\n\n",lvl);
+            for(i=1;i<=size;i++)
+            {
+                printf("\t");
+                for(j=1;j<=size;j++)
+                {
+                    printf("%c",a[i][j]);
+                }
+                printf("\n");
+            }
+        }
+        else
+        {
+            printf("\n\nLamb or Wolf are out of the ground\n");
+            break;
+        }
+    }
+    return 0;
+    getch();
+}
